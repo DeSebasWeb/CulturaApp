@@ -103,9 +103,48 @@ const initializeData = () => {
     localStorage.setItem('events', JSON.stringify(events));
   }
   
-  // Reservas (inicialmente vacío o con datos de ejemplo)
+  // Reservas (inicialmente con datos de ejemplo para desarrollo)
   if (!localStorage.getItem('reservations')) {
-    localStorage.setItem('reservations', JSON.stringify([]));
+    const sampleReservations = [
+      {
+        id: Date.now() + 1,
+        userId: 1, // Usuario admin
+        eventId: 1, // Concierto de Jazz
+        quantity: 2,
+        status: 'active',
+        createdAt: new Date('2025-11-15').toISOString(),
+        updatedAt: new Date('2025-11-15').toISOString()
+      },
+      {
+        id: Date.now() + 2,
+        userId: 1,
+        eventId: 3, // Taller de Fotografía
+        quantity: 1,
+        status: 'active',
+        createdAt: new Date('2025-11-16').toISOString(),
+        updatedAt: new Date('2025-11-16').toISOString()
+      },
+      {
+        id: Date.now() + 3,
+        userId: 1,
+        eventId: 4, // Obra de Teatro
+        quantity: 1,
+        status: 'cancelled',
+        createdAt: new Date('2025-11-10').toISOString(),
+        updatedAt: new Date('2025-11-14').toISOString(),
+        cancelledAt: new Date('2025-11-14').toISOString()
+      },
+      {
+        id: Date.now() + 4,
+        userId: 2, // Usuario maria
+        eventId: 2, // Exposición de Arte
+        quantity: 1,
+        status: 'active',
+        createdAt: new Date('2025-11-17').toISOString(),
+        updatedAt: new Date('2025-11-17').toISOString()
+      }
+    ];
+    localStorage.setItem('reservations', JSON.stringify(sampleReservations));
   }
 };
 
