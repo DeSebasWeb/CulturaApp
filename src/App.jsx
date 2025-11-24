@@ -6,6 +6,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/common/PrivateRoute';
+import NewReservation from "./pages/NewReservation";
+import ReservationDetail from "./pages/ReservationDetail";
+import Events from "./pages/Events";
 
 // Páginas
 import Login from './pages/Login';
@@ -28,30 +31,36 @@ function App() {
               </PrivateRoute>
             } 
           />
-          
-          {/* Placeholder para rutas futuras */}
-          {/* 
-          <Route 
-            path="/reservations/new" 
-            element={
-              <PrivateRoute>
-                <NewReservation />
-              </PrivateRoute>
-            } 
-          />
-          
-          <Route 
-            path="/reservations/:id" 
-            element={
-              <PrivateRoute>
-                <ReservationDetail />
-              </PrivateRoute>
-            } 
-          />
-          */}
-          
-          {/* Redirección por defecto */}
-          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route
+  path="/events"
+  element={
+    <PrivateRoute>
+      <Events />
+    </PrivateRoute>
+  }
+/>
+
+         {/* Crear nueva reserva (tu flujo de creación) */}
+<Route
+  path="/reservations/new"
+  element={
+    <PrivateRoute>
+      <NewReservation />
+    </PrivateRoute>
+  }
+/>
+
+{/* Detalle de reserva */}
+<Route
+  path="/reservations/:id"
+  element={
+    <PrivateRoute>
+      <ReservationDetail />
+    </PrivateRoute>
+  }
+/>
+{/* Redirección por defecto */}
+<Route path="/" element={<Navigate to="/login" replace />} />
           
           {/* Ruta 404 */}
           <Route 
