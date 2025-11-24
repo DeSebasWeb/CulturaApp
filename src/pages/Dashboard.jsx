@@ -3,12 +3,12 @@
  * Muestra las reservas del usuario con estadísticas y listado completo
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { api } from '../services/api';
-import { formatCurrency } from '../utils/helpers';
-import ReservationList from '../components/ReservationList';
+import { api } from "../services/api";
+import { formatCurrency } from "../utils/helpers";
+import ReservationList from "../components/ReservationList";
 
 export default function Dashboard() {
   const { user, logout } = useAuth();
@@ -23,7 +23,7 @@ export default function Dashboard() {
   const [stats, setStats] = useState({
     activeReservations: 0,
     totalEvents: 0,
-    totalSpent: 0
+    totalSpent: 0,
   });
 
   /**
@@ -49,8 +49,8 @@ export default function Dashboard() {
       // Calcular estadísticas
       calculateStats(userReservations);
     } catch (err) {
-      console.error('Error al cargar reservas:', err);
-      setError(err.message || 'No se pudieron cargar las reservas');
+      console.error("Error al cargar reservas:", err);
+      setError(err.message || "No se pudieron cargar las reservas");
     } finally {
       setLoading(false);
     }
@@ -60,21 +60,21 @@ export default function Dashboard() {
    * Calcula las estadísticas del dashboard
    */
   const calculateStats = (reservationsList) => {
-    const active = reservationsList.filter(r => r.status === 'active').length;
+    const active = reservationsList.filter((r) => r.status === "active").length;
 
     // Calcular total gastado (solo reservas activas)
     const total = reservationsList
-      .filter(r => r.status === 'active')
+      .filter((r) => r.status === "active")
       .reduce((sum, r) => {
         const quantity = r.quantity || 1;
         const price = r.event?.price || 0;
-        return sum + (price * quantity);
+        return sum + price * quantity;
       }, 0);
 
     setStats({
       activeReservations: active,
       totalEvents: reservationsList.length,
-      totalSpent: total
+      totalSpent: total,
     });
   };
 
@@ -88,9 +88,9 @@ export default function Dashboard() {
       // Recargar reservas después de cancelar
       await loadReservations();
 
-      alert('Reserva cancelada exitosamente');
+      alert("Reserva cancelada exitosamente");
     } catch (err) {
-      console.error('Error al cancelar reserva:', err);
+      console.error("Error al cancelar reserva:", err);
       throw err; // Re-lanzar para que el componente hijo lo maneje
     }
   };
@@ -100,7 +100,7 @@ export default function Dashboard() {
    */
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
@@ -110,19 +110,19 @@ export default function Dashboard() {
         <div className="container-fluid">
           {/* Logo y título */}
           <div className="d-flex align-items-center">
-            <svg 
-              width="32" 
-              height="32" 
-              fill="none" 
-              stroke="#6366f1" 
+            <svg
+              width="32"
+              height="32"
+              fill="none"
+              stroke="#6366f1"
               strokeWidth="2"
               viewBox="0 0 24 24"
               className="me-2"
             >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" 
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
               />
             </svg>
             <span className="navbar-brand mb-0 h5 fw-bold">CulturaApp</span>
@@ -132,25 +132,27 @@ export default function Dashboard() {
           <div className="d-flex align-items-center">
             <div className="text-end me-3">
               <p className="mb-0 fw-medium small">{user?.name}</p>
-              <p className="mb-0 text-muted" style={{ fontSize: '0.75rem' }}>{user?.email}</p>
+              <p className="mb-0 text-muted" style={{ fontSize: "0.75rem" }}>
+                {user?.email}
+              </p>
             </div>
             <button
               onClick={handleLogout}
               className="btn btn-danger d-flex align-items-center"
             >
-              <svg 
-                width="16" 
-                height="16" 
-                fill="none" 
-                stroke="currentColor" 
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
                 className="me-2"
               >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" 
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                 />
               </svg>
               Cerrar Sesión
@@ -163,12 +165,8 @@ export default function Dashboard() {
       <main className="container py-4">
         {/* Header del Dashboard */}
         <div className="mb-4">
-          <h2 className="h3 fw-bold">
-            ¡Bienvenido, {user?.name}! 👋
-          </h2>
-          <p className="text-muted">
-            Gestiona tus reservas para eventos culturales
-          </p>
+          <h2 className="h3 fw-bold">¡Bienvenido, {user?.name}! 👋</h2>
+          <p className="text-muted">Gestiona tus reservas para eventos culturales</p>
         </div>
 
         {/* Cards de estadísticas */}
@@ -197,11 +195,16 @@ export default function Dashboard() {
                   <div>
                     <p className="text-muted small mb-1">Reservas Activas</p>
                     {loading ? (
-                      <div className="spinner-border spinner-border-sm text-success" role="status">
+                      <div
+                        className="spinner-border spinner-border-sm text-success"
+                        role="status"
+                      >
                         <span className="visually-hidden">Cargando...</span>
                       </div>
                     ) : (
-                      <h3 className="h2 mb-0 fw-bold">{stats.activeReservations}</h3>
+                      <h3 className="h2 mb-0 fw-bold">
+                        {stats.activeReservations}
+                      </h3>
                     )}
                   </div>
                 </div>
@@ -233,7 +236,10 @@ export default function Dashboard() {
                   <div>
                     <p className="text-muted small mb-1">Total Reservas</p>
                     {loading ? (
-                      <div className="spinner-border spinner-border-sm text-primary" role="status">
+                      <div
+                        className="spinner-border spinner-border-sm text-primary"
+                        role="status"
+                      >
                         <span className="visually-hidden">Cargando...</span>
                       </div>
                     ) : (
@@ -250,7 +256,10 @@ export default function Dashboard() {
             <div className="card border-0 shadow-sm">
               <div className="card-body">
                 <div className="d-flex align-items-center">
-                  <div className="rounded-circle p-3 me-3" style={{ backgroundColor: 'rgba(99, 102, 241, 0.1)' }}>
+                  <div
+                    className="rounded-circle p-3 me-3"
+                    style={{ backgroundColor: "rgba(99, 102, 241, 0.1)" }}
+                  >
                     <svg
                       width="24"
                       height="24"
@@ -269,17 +278,34 @@ export default function Dashboard() {
                   <div>
                     <p className="text-muted small mb-1">Total Gastado</p>
                     {loading ? (
-                      <div className="spinner-border spinner-border-sm" style={{ color: '#6366f1' }} role="status">
+                      <div
+                        className="spinner-border spinner-border-sm"
+                        style={{ color: "#6366f1" }}
+                        role="status"
+                      >
                         <span className="visually-hidden">Cargando...</span>
                       </div>
                     ) : (
-                      <h3 className="h2 mb-0 fw-bold">{formatCurrency(stats.totalSpent)}</h3>
+                      <h3 className="h2 mb-0 fw-bold">
+                        {formatCurrency(stats.totalSpent)}
+                      </h3>
                     )}
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Encabezado sección de reservas + botón crear */}
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h3 className="h5 mb-0">Mis reservas</h3>
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate("/reservations/new")}
+          >
+            + Crear nueva reserva
+          </button>
         </div>
 
         {/* Listado de Reservas */}
