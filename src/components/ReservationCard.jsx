@@ -94,6 +94,12 @@ export default function ReservationCard({ reservation, onCancel }) {
     navigate(`/reservations/${reservation.id}`);
   };
 
+    const handleModify = () => {
+    navigate(`/reservations/${reservation.id}/edit`);
+  };
+
+ 
+
   return (
     <div className="card border-0 shadow-sm hover-shadow transition mb-3">
       <div className="card-body">
@@ -216,6 +222,32 @@ export default function ReservationCard({ reservation, onCancel }) {
                 </svg>
                 Ver Detalle
               </button>
+
+               {/* Botón Modificar Reserva (solo si está activa) */}
+              {status === 'active' && (
+                <button
+                  onClick={handleModify}
+                  className="btn btn-warning text-white btn-sm d-flex align-items-center justify-content-center"
+                  disabled={isLoading}
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    className="me-2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                    />
+                  </svg>
+                  Modificar Reserva
+                </button>
+              )}
 
               {/* Botón Cancelar (solo si está activa) */}
               {status === 'active' && (

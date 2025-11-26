@@ -13,6 +13,7 @@ import Events from "./pages/Events";
 // Páginas
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import EditReservation from './pages/EditReservation';
 
 function App() {
   return (
@@ -30,6 +31,15 @@ function App() {
                 <Dashboard />
               </PrivateRoute>
             } 
+          />
+          {/* Ruta protegida - Editar reserva */}
+          <Route 
+            path="/reservations/:id/edit"
+            element={
+              <PrivateRoute>
+                <EditReservation />
+              </PrivateRoute>
+            }
           />
           <Route
   path="/events"
